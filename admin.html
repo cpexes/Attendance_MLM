@@ -88,7 +88,19 @@
                 </div>
             </div>
 
-            <!-- Data Table -->
+            <div class="table-controls-top">
+                <div class="entries-selector">
+                    SHOW:
+                    <select id="rowsPerPage">
+                        <option value="5">5</option>
+                        <option value="10" selected>10</option>
+                        <option value="25">25</option>
+                        <option value="all">All</option>
+                    </select>
+                    ENTRIES
+                </div>
+            </div>
+
             <div class="table-container">
                 <table id="attendanceTable">
                     <thead>
@@ -102,9 +114,19 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <!-- Injected via JS -->
-                    </tbody>
+                        </tbody>
                 </table>
+            </div>
+
+            <div class="table-controls-bottom">
+                <div class="pagination-info" id="paginationInfo">
+                    Showing 0 to 0 of 0 entries
+                </div>
+                <div class="pagination-buttons">
+                    <button id="prevPageBtn" class="btn btn-outline">Previous</button>
+                    <span id="pageIndicator" class="page-indicator">Page 1 of 1</span>
+                    <button id="nextPageBtn" class="btn btn-outline">Next</button>
+                </div>
             </div>
         </section>
 
@@ -136,22 +158,46 @@
                     </div>
                 </div>
 
-                <!-- Active Meetings Table -->
-                <div class="table-container">
-                    <table id="meetingsTable">
-                        <thead>
-                            <tr>
-                                <th>Meeting Name</th>
-                                <th>Start Time</th>
-                                <th>Cutoff Time</th>
-                                <th>Active</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!-- Injected via JS -->
-                        </tbody>
-                    </table>
+                <div class="table-wrapper" style="display: flex; flex-direction: column; width: 100%;">
+                    <div class="table-controls-top">
+                        <div class="entries-selector">
+                            SHOW:
+                            <select id="meetingRowsPerPage">
+                                <option value="5">5</option>
+                                <option value="10" selected>10</option>
+                                <option value="25">25</option>
+                                <option value="all">All</option>
+                            </select>
+                            ENTRIES
+                        </div>
+                    </div>
+
+                    <div class="table-container">
+                        <table id="meetingsTable">
+                            <thead>
+                                <tr>
+                                    <th>Meeting Name</th>
+                                    <th>Start Time</th>
+                                    <th>Cutoff Time</th>
+                                    <th>Active</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                </tbody>
+                        </table>
+                    </div>
+
+                    <div class="table-controls-bottom">
+                        <div class="pagination-info" id="meetingPaginationInfo">
+                            Showing 0 to 0 of 0 entries
+                        </div>
+                        <div class="pagination-buttons">
+                            <button id="prevMeetingPageBtn" class="btn btn-outline">Previous</button>
+                            <span id="meetingPageIndicator" class="page-indicator">Page 1 of 1</span>
+                            <button id="nextMeetingPageBtn" class="btn btn-outline">Next</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
