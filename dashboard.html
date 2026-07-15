@@ -1,49 +1,85 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Dashboard</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Member Dashboard - MLM Attendance</title>
+    
+    <!-- Premium Font: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Linked to the new dedicated Dashboard CSS file -->
+    <link rel="stylesheet" href="css/dashboard.css">
 </head>
 <body>
 
-    <h1>Dashboard</h1>
+    <!-- Top Navigation -->
+    <nav class="navbar">
+        <h1>MLM LOGO</h1>
+        <button id="logoutBtn" class="logout-btn">Log out</button>
+    </nav>
 
-<h2>Attendance Form</h2>
+    <!-- Main Content Area -->
+    <main class="main-content">
+        
+        <div class="form-card">
+            <div class="form-header">
+                <h2>Attendance Form</h2>
+                <p>Please confirm your details and select your schedule.</p>
+            </div>
 
-<label>Name</label><br>
-<input type="text" id="name" readonly><br><br>
+            <!-- Pre-filled Details -->
+            <div class="form-group">
+                <label>Full Name</label>
+                <input type="text" id="name" readonly>
+            </div>
 
-<label>Email</label><br>
-<input type="email" id="email" readonly><br><br>
+            <div class="form-group">
+                <label>Email Address</label>
+                <input type="email" id="email" readonly>
+            </div>
 
-<label>Organization</label><br>
-<select id="organization" required>
-    <option value="">Select Organization</option>
-</select>
+            <div class="form-group">
+                <label>Date</label>
+                <input type="date" id="date" readonly>
+            </div>
 
-<br><br>
+            <!-- Selectable Details -->
+            <div class="form-group">
+                <label>Organization</label>
+                <div class="select-wrapper">
+                    <select id="organization" required onchange="this.blur()">
+                        <option value="" disabled selected>Select Organization</option>
+                    </select>
+                </div>
+            </div>
 
-<label>Date</label><br>
-<input type="date" id="date" readonly>
+            <div class="form-group">
+                <label>Schedule / Meeting</label>
+                <div class="select-wrapper">
+                    <select id="schedule" required onchange="this.blur()">
+                        <option value="" disabled selected>Select Schedule</option>
+                    </select>
+                </div>
+            </div>
 
-<br><br>
+            <!-- Submit Action -->
+            <button id="submitAttendance" class="submit-btn">
+                Submit Attendance
+            </button>
+        </div>
 
-<label>Schedule</label><br>
-<select id="schedule" required>
-    <option value="">Select Schedule</option>
-</select>
+    </main>
 
-<br><br>
+    <!-- Premium Toast Notification -->
+    <div id="toast" class="toast">
+        <div class="toast-icon" id="toastIcon"></div>
+        <div class="toast-message" id="toastMessage">Message goes here</div>
+    </div>
 
-<button id="submitAttendance">
-    Submit Attendance
-</button>
-
-<br><br>
-
-<button id="logoutBtn">
-    Logout
-</button>
-
+    <!-- Supabase and Logic Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="js/conf.js"></script>
     <script src="js/auth.js"></script>

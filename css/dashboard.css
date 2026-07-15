@@ -1,0 +1,229 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', Arial, sans-serif;
+}
+
+body {
+    background-color: #f9fafb; /* Very light neutral gray */
+    color: #111827; /* Near black for strong contrast */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Navbar */
+.navbar {
+    background-color: #ffffff;
+    border-bottom: 1px solid #e5e7eb;
+    padding: 16px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.navbar h1 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #111827;
+}
+
+.logout-btn {
+    background: transparent;
+    border: 1px solid #d1d5db;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #4b5563;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.logout-btn:hover {
+    background: #f3f4f6;
+    color: #111827;
+}
+
+/* Main Content */
+.main-content {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Aligns to top, better for mobile */
+    padding: 40px 20px;
+}
+
+.form-card {
+    background: #ffffff;
+    width: 100%;
+    max-width: 450px;
+    padding: 32px;
+    border-radius: 12px;
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.form-header {
+    margin-bottom: 24px;
+    text-align: center;
+}
+
+.form-header h2 {
+    font-size: 20px;
+    font-weight: 600;
+    color: #111827;
+    margin-bottom: 4px;
+}
+
+.form-header p {
+    font-size: 14px;
+    color: #6b7280;
+}
+
+/* Form Groups */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 14px;
+    font-weight: 500;
+    color: #374151;
+    margin-bottom: 8px;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 12px;
+    padding-right: 40px; /* Prevents long text from overlapping the arrow */
+    font-size: 15px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    background-color: #ffffff;
+    color: #111827;
+    transition: all 0.3s ease; 
+    appearance: none; 
+}
+
+/* The new wrapper to handle the animated chevron */
+.select-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+/* Creating the custom chevron */
+.select-wrapper::after {
+    content: '';
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 16px;
+    height: 16px;
+    /* Clean, neutral SVG chevron */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%236b7280'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    pointer-events: none; /* Ensures clicks pass through to the select tag */
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1); /* Premium easing curve */
+}
+
+/* The Animation Triggers on Focus */
+.form-group input:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: #111827; /* Darker, more premium border on focus */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); /* Soft elevation shadow */
+    transform: translateY(-2px); /* Slight lift effect */
+}
+
+/* Rotate the chevron when the select is tapped */
+.select-wrapper:focus-within::after {
+    transform: translateY(-50%) rotate(180deg);
+}
+
+/* Styling for Read-only fields */
+.form-group input[readonly] {
+    background-color: #f9fafb;
+    color: #6b7280;
+    cursor: not-allowed;
+    border-color: #e5e7eb;
+}
+
+.form-group input[readonly]:focus {
+    border-color: #e5e7eb;
+    box-shadow: none;
+    transform: none; /* Disables the lift animation on read-only */
+}
+
+/* Submit Button */
+.submit-btn {
+    width: 100%;
+    padding: 14px;
+    background-color: #111827; /* Strong neutral dark */
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.1s;
+    margin-top: 10px;
+}
+
+.submit-btn:hover {
+    background-color: #374151;
+}
+
+.submit-btn:active {
+    transform: scale(0.98);
+}
+
+/* Custom Toast Notification */
+.toast {
+    position: fixed;
+    top: 24px;
+    left: 50%;
+    transform: translateX(-50%) translateY(-100px); /* Hidden above screen */
+    background: #ffffff;
+    color: #111827;
+    padding: 16px 24px;
+    border-radius: 12px;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.05);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    z-index: 1000;
+    opacity: 0;
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Premium bounce effect */
+    border-left: 4px solid transparent;
+}
+
+.toast.show {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+}
+
+.toast.error {
+    border-left-color: #ef4444; /* Alert Red */
+}
+
+.toast.success {
+    border-left-color: #10b981; /* Success Green */
+}
+
+.toast-icon svg {
+    width: 24px;
+    height: 24px;
+}
+
+.toast-message {
+    font-size: 14px;
+    font-weight: 500;
+}

@@ -51,9 +51,7 @@ function renderMeetingsTable(meetings) {
                     >
                 </td>
                 <td>
-                    <button
-                        class="editMeeting"
-                        data-id="${meeting.id}">
+                    <button class="btn-text editMeeting" data-id="${meeting.id}">
                         Edit
                     </button>
                 </td>
