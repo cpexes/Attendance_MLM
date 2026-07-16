@@ -1,69 +1,97 @@
-document
-    .getElementById("exportCsvBtn")
-    .addEventListener("click", exportCsv);
+document.getElementById("exportCsvBtn").addEventListener("click", handleExportClick);
 
-    function exportCsv() {
-
+async function handleExportClick() {
+    // Matches your original empty check logic
     if (filteredAttendanceData.length === 0) {
-
-        alert("There are no records to export.");
+        showToast("There are no records to export.", "error"); 
         return;
-
     }
 
-    const headers = [
-    "Name",
-    "Organization",
-    "Date",
-    "Meeting",
-    "Time In",
-    "Remarks"
-];
+    // Trigger the custom modal and wait for the filename
+    const filename = await showExportModal();
+    
+    // If they clicked Cancel, stop silently
+    if (!filename) return; 
 
-const rows = filteredAttendanceData.map(record => [
+    exportToCSV(filename);
+}
 
-    record.Name,
-    record.Organization,
-    record.Date,
-    record.meetings?.meeting_name ?? "",
-    new Date(record.Time_In).toLocaleTimeString("en-PH", {
-        hour: "2-digit",
-        minute: "2-digit",
-        second: "2-digit",
-        hour12: true
-    }),
-    record.Remarks
+// --- Premium Custom Export Dialog Logic ---
+function showExportModal() {
+    return new Promise((resolve) => {
+        const modal = document.getElementById("exportModal");
+        const input = document.getElementById("exportInput");
+        const confirmBtn = document.getElementById("confirmExportBtn");
+        const cancelBtn = document.getElementById("cancelExportBtn");
 
-]);
+        // Matched your exact default filename convention
+        const defaultName = `Attendance_${new Date().toISOString().split("T")[0]}`;
+        input.value = defaultName;
+        
+        // Show modal and automatically highlight the text
+        modal.classList.add("show");
+        input.focus();
+        input.select(); 
 
-const csvContent = [
+        const cleanup = (result) => {
+            modal.classList.remove("show");
+            confirmBtn.onclick = null;
+            cancelBtn.onclick = null;
+            resolve(result);
+        };
 
-    headers.join(","),
+        // If they leave it blank, fall back to the default name
+        confirmBtn.onclick = () => cleanup(input.value.trim() || defaultName);
+        cancelBtn.onclick = () => cleanup(null);
+    });
+}
 
-    ...rows.map(row => row.join(","))
+// --- Core CSV Generation ---
+function exportToCSV(filename) {
+    // Matched your exact headers
+    const headers = ["Name", "Organization", "Date", "Meeting", "Time In", "Remarks"];
+    
+    const rows = filteredAttendanceData.map(record => {
+        const formattedTime = new Date(record.Time_In).toLocaleTimeString("en-PH", {
+            hour: "2-digit",
+            minute: "2-digit",
+            second: "2-digit",
+            hour12: true
+        });
 
-].join("\n");
+        // Matched your data mapping, added CSV quote wrapping for safety
+        return [
+            `"${record.Name}"`,
+            `"${record.Organization}"`,
+            `"${record.Date}"`,
+            `"${record.meetings?.meeting_name ?? ""}"`,
+            `"${formattedTime}"`,
+            `"${record.Remarks}"`
+        ];
+    });
 
-const blob = new Blob(
-    [csvContent],
-    { type: "text/csv;charset=utf-8;" }
-);
+    const csvContent = [
+        headers.join(","),
+        ...rows.map(row => row.join(","))
+    ].join("\n");
 
-const url = URL.createObjectURL(blob);
+    const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    
+    // Ensure the filename ends with .csv
+    const finalFilename = filename.endsWith(".csv") ? filename : `${filename}.csv`;
+    
+    link.href = url;
+    link.download = finalFilename;
+    
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
 
-const link = document.createElement("a");
+    // Kept your excellent memory cleanup line
+    URL.revokeObjectURL(url);
 
-link.href = url;
-
-link.download =
-    `Attendance_${new Date().toISOString().split("T")[0]}.csv`;
-
-document.body.appendChild(link);
-
-link.click();
-
-document.body.removeChild(link);
-
-URL.revokeObjectURL(url);
-
+    // Give satisfying premium feedback
+    showToast("CSV Exported Successfully!", "success");
 }

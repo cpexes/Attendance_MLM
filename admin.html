@@ -163,8 +163,8 @@
                         <div class="entries-selector">
                             SHOW:
                             <select id="meetingRowsPerPage">
-                                <option value="5">5</option>
-                                <option value="10" selected>10</option>
+                                <option value="5" selected>5</option>
+                                <option value="10">10</option>
                                 <option value="25">25</option>
                                 <option value="all">All</option>
                             </select>
@@ -223,6 +223,122 @@
         <div class="toast-message" id="toastMessage">Message goes here</div>
     </div>
 
+    <!-- Premium Prompt Modal for Mass Deletions -->
+    <div id="promptModal" class="modal-overlay">
+        <div class="modal-card">
+            <div class="modal-header">
+                <svg class="modal-icon" fill="none" stroke="#ef4444" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+                </svg>
+                <h3>Clear All Records</h3>
+            </div>
+            <p class="modal-body">WARNING! This will permanently delete ALL attendance records.<br><br>Type <strong>DELETE</strong> to continue.</p>
+            
+            <input type="text" id="promptInput" class="modal-input" placeholder="Type DELETE here..." autocomplete="off">
+            
+            <div class="modal-actions">
+                <button id="cancelPromptBtn" class="btn btn-outline">Cancel</button>
+                <button id="confirmPromptBtn" class="btn btn-danger" disabled>Delete All</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Premium Prompt Modal for Exporting CSV -->
+    <div id="exportModal" class="modal-overlay">
+        <div class="modal-card">
+            <div class="modal-header">
+                <!-- Premium Green Download Icon -->
+                <svg class="modal-icon" fill="none" stroke="#10b981" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+                </svg>
+                <h3>Export to CSV</h3>
+            </div>
+            <p class="modal-body">Enter a filename for your attendance report.</p>
+            
+            <input type="text" id="exportInput" class="modal-input" autocomplete="off">
+            
+            <div class="modal-actions">
+                <button id="cancelExportBtn" class="btn btn-outline">Cancel</button>
+                <button id="confirmExportBtn" class="btn btn-primary">Download</button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Premium Confirmation Modal for Logout -->
+    <div id="logoutModal" class="modal-overlay">
+        <div class="modal-card">
+            <div class="modal-header">
+                <!-- Premium Exit Icon -->
+                <svg class="modal-icon" fill="none" stroke="#4b5563" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
+                </svg>
+                <h3>Log Out</h3>
+            </div>
+            <p class="modal-body">Are you sure you want to log out of the admin dashboard?</p>
+            <div class="modal-actions">
+                <button id="cancelLogoutBtn" class="btn btn-outline">Cancel</button>
+                <button id="confirmLogoutBtn" class="btn btn-primary">Log Out</button>
+            </div>
+        </div>
+    </div>
+
+    <section class="card">
+            <h2 class="section-title">Organization Management</h2>
+            
+            <div class="meeting-layout"> <div class="meeting-form-wrapper">
+                    <h3 class="section-title" style="font-size: 15px; margin-bottom: 16px;">Add Organization</h3>
+                    <div class="form-grid">
+                        <div class="filter-group">
+                            <label>Organization Name</label>
+                            <input type="text" id="orgNameInput" placeholder="e.g. Celestial Choir">
+                        </div>
+                        <div class="form-actions">
+                            <button id="createOrgBtn" class="btn btn-primary">Add</button>
+                            <button id="clearOrgBtn" class="btn btn-outline">Clear</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="table-wrapper" style="display: flex; flex-direction: column; width: 100%;">
+                    <div class="table-controls-top">
+                        <div class="entries-selector">
+                            SHOW:
+                            <select id="orgRowsPerPage">
+                                <option value="5" selected>5</option>
+                                <option value="10">10</option>
+                                <option value="25">25</option>
+                                <option value="all">All</option>
+                            </select>
+                            ENTRIES
+                        </div>
+                    </div>
+
+                    <div class="table-container">
+                        <table id="orgsTable">
+                            <thead>
+                                <tr>
+                                    <th>Organization Name</th>
+                                    <th style="width: 100px;">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                </tbody>
+                        </table>
+                    </div>
+
+                    <div class="table-controls-bottom">
+                        <div class="pagination-info" id="orgPaginationInfo">Showing 0 to 0 of 0 entries</div>
+                        <div class="pagination-buttons">
+                            <button id="prevOrgPageBtn" class="btn btn-outline">Previous</button>
+                            <span id="orgPageIndicator" class="page-indicator">Page 1 of 1</span>
+                            <button id="nextOrgPageBtn" class="btn btn-outline">Next</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
     </main>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -233,6 +349,7 @@
     <script src="js/filtering.js"></script>
     <script src="js/admin_data.js"></script>
     <script src="js/manage_meetings.js"></script>
+    <script src="js/manage_orgs.js"></script>
     <script src="js/export.js"></script>
     <script src="js/admin_actions.js"></script>
     <script src="js/admin.js"></script>

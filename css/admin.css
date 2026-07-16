@@ -559,3 +559,30 @@ tr:hover td {
 .toggle-switch input:focus-visible + .slider {
     box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.2);
 }
+
+/* Premium Modal Input */
+.modal-input {
+    width: 100%;
+    padding: 10px 12px;
+    margin-bottom: 24px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    font-size: 14px;
+    outline: none;
+    transition: all 0.2s;
+    background-color: #f9fafb;
+    color: #111827;
+}
+
+.modal-input:focus {
+    border-color: #ef4444; /* Alert red focus ring */
+    box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.1);
+    background-color: #ffffff;
+}
+
+.modal-actions .btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    background: #fef2f2;
+    border-color: #fee2e2;
+}

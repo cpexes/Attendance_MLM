@@ -5,80 +5,139 @@
     font-family: 'Inter', Arial, sans-serif;
 }
 
+body, html {
+    height: 100%;
+    width: 100%;
+}
+
+/* The Immersive Background */
+/* The Immersive Background */
 body {
-    height: 100vh;
+    background-color: #ffffff; /* Changed to white to match the JPG edges seamlessly */
+    background-image: 
+        linear-gradient(rgba(17, 24, 39, 0.85), rgba(17, 24, 39, 0.95)), /* Dark tint layer */
+        url('../images/mlm_logo.jpg'); /* Logo layer */
+    background-position: center, center;
+    background-repeat: no-repeat, no-repeat;
+    background-size: cover, 650px; /* Kept your 650px adjustment! */
     display: flex;
     justify-content: center;
     align-items: center;
-    background: linear-gradient(135deg, #ffffff 0%, #ffffff 100%); 
 }
 
 .container {
-    padding: 20px;
     width: 100%;
+    padding: 24px;
     display: flex;
     justify-content: center;
+    align-items: center;
 }
 
+/* Premium Glassmorphism Card */
 .login-card {
-    width: 100%;
-    max-width: 380px; 
-    background: #ffffff;
-    padding: 40px 30px;
-    border-radius: 16px; 
-    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.4), 0 8px 10px -6px rgba(0, 0, 0, 0.1); 
+    background: rgba(255, 255, 255, 0.08); /* Barely visible white tint */
+    backdrop-filter: blur(16px); /* Heavy frosted glass blur */
+    -webkit-backdrop-filter: blur(16px); /* For Safari support */
+    border: 1px solid rgba(255, 255, 255, 0.15); /* Subtle glowing edge */
+    padding: 48px 40px;
+    border-radius: 20px;
     text-align: center;
+    max-width: 440px;
+    width: 100%;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); /* Deep drop shadow */
 }
 
-.logo-placeholder {
-    font-size: 48px;
-    margin-bottom: 15px;
-}
-
-h1 {
-    color: #111827;
-    font-size: 24px;
+.login-card h1 {
+    color: #ffffff;
+    font-size: 26px;
     font-weight: 600;
-    margin-bottom: 8px;
+    margin-bottom: 12px;
+    line-height: 1.4;
 }
 
-p {
-    color: #6b7280;
-    font-size: 14px;
-    margin-bottom: 32px;
+.login-card p {
+    color: #d1d5db;
+    font-size: 15px;
+    margin-bottom: 40px;
 }
 
+/* Premium Google Button */
 .google-btn {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 12px;
     width: 100%;
-    padding: 12px 16px;
-    background: #ffffff;
+    padding: 14px 24px;
+    background-color: #ffffff;
     color: #374151;
     font-size: 15px;
     font-weight: 500;
-    border: 1px solid #d1d5db;
-    border-radius: 8px;
+    border: none;
+    border-radius: 10px;
     cursor: pointer;
-    transition: all 0.2s ease; 
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 }
 
 .google-btn:hover {
-    background: #f9fafb;
-    border-color: #d1d5db;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
-    transform: translateY(-1px); 
+    background-color: #f9fafb;
+    transform: translateY(-2px); /* Slight lift on hover */
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
 }
 
 .google-btn:active {
-    transform: translateY(0); 
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    transform: translateY(0); /* Press down effect */
 }
 
 .google-icon {
-    width: 20px;
-    height: 20px;
+    width: 22px;
+    height: 22px;
+}
+
+/* Premium Copyright Footer */
+.login-footer {
+    position: absolute;
+    bottom: 24px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.4); /* Very subtle, semi-transparent white */
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: 0.3px;
+    pointer-events: none; /* Prevents text cursor from interfering with the background */
+}
+
+/* --- Mobile Responsiveness --- */
+@media (max-width: 600px) {
+    body {
+        /* Shrink the background logo from 650px to 320px for mobile */
+        background-size: cover, 520px; 
+    }
+
+    .container {
+        padding: 16px; /* Reduces the outer container padding */
+    }
+
+    .login-card {
+        padding: 40px 24px; /* Thinner inside padding to give text more room */
+        border-radius: 16px; /* Slightly softer corners for mobile */
+    }
+
+    .login-card h1 {
+        font-size: 22px; /* Scaled down slightly to fix the awkward wrapping */
+    }
+
+    .login-card p {
+        font-size: 14px;
+        margin-bottom: 32px;
+    }
+
+    .login-footer {
+        font-size: 11px; /* Smaller text to fit the screen better */
+        padding: 0 24px; /* Adds breathing room on the left and right */
+        bottom: 16px; /* Lifts it slightly further away from the bottom edge */
+        line-height: 1.5; /* Makes the stacked text easier to read */
+    }
 }

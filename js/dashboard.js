@@ -46,7 +46,34 @@ meetings.forEach(meeting => {
 
 })();
 
-document.getElementById("logoutBtn").addEventListener("click", logout);
+// Premium Logout Interceptor
+document.getElementById("logoutBtn").addEventListener("click", async () => {
+    const isConfirmed = await showLogoutModal();
+    if (isConfirmed) {
+        await logout(); 
+    }
+});
+
+// Premium Custom Logout Dialog Logic
+function showLogoutModal() {
+    return new Promise((resolve) => {
+        const modal = document.getElementById("logoutModal");
+        const confirmBtn = document.getElementById("confirmLogoutBtn");
+        const cancelBtn = document.getElementById("cancelLogoutBtn");
+
+        modal.classList.add("show");
+
+        const cleanup = (result) => {
+            modal.classList.remove("show");
+            confirmBtn.onclick = null;
+            cancelBtn.onclick = null;
+            resolve(result);
+        };
+
+        confirmBtn.onclick = () => cleanup(true);
+        cancelBtn.onclick = () => cleanup(false);
+    });
+}
 
 
 // Premium UI fix: Unfocus dropdown after selection to trigger chevron animation
